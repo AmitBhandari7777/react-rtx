@@ -1,4 +1,4 @@
-import { deleteRequest, getRequest, postRequest, putRequest } from "../api/axiosApi"
+import { deleteRequest, getRequest, postRequest, putRequest } from "../../api/axiosApi";
 import { PostAddRequest, PostUpdateRequest } from "../state/postInterface";
 
 
