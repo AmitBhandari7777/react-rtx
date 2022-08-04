@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import postServices from "../services/postServices";
-import { PostAddRequest, PostUpdateRequest } from "./postInterface";
+import { PostAddRequest, PostUpdateRequest } from "./postTypes";
 
 export const postListThunk = createAsyncThunk("post/list", async () => {
     try {

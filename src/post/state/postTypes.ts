@@ -35,6 +35,7 @@ export interface PostUpdateResponse {
     post: Post,
     stastus: "idle" | "loading" | "success" | "failed";
 }
+
 export interface PostState {
     count: number,
     add: PostAddRequest,

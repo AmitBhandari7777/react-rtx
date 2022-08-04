@@ -1,15 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
+import { Todo } from "./todoTypes";
 
-export interface Todo {
-    id: number,
-    title: string,
-}
-
-export interface TodoState {
-    count: number;
-    todos: [];
-}
 
 const initialState = {
     count: 0,
@@ -34,12 +26,12 @@ export const todoSlice = createSlice({
         },
         todoRemove: (state, action) => {
             state.todos = state.todos.filter((todo) => todo.id !== action.payload);
-
+            state.count -= 1;
         },
     },
 })
 
 
-export const { todoAdd,todoRemove } = todoSlice.actions;
+export const { todoAdd, todoRemove } = todoSlice.actions;
 export default todoSlice.reducer;
 export const selectTodo = (state: RootState) => state.todo;

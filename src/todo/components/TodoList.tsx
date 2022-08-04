@@ -20,13 +20,12 @@ const TodoList = () => {
             {count > 0 && todos.map((todo) => (
                 <TodoItem
                     key={todo.id}
-                    id={todo.id}
-                    title={todo.title}
+                    {...todo}
                     onCheck={handleTodoRemove}
                 />
             ))}
 
-            {count === 0 && <p>No todos</p>}
+            {count === 0 && <p>0 todo(s)</p>}
 
         </div>
     );

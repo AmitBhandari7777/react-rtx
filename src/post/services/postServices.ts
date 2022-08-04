@@ -1,5 +1,5 @@
 import { deleteRequest, getRequest, postRequest, putRequest } from "../../api/axiosApi";
-import { PostAddRequest, PostUpdateRequest } from "../state/postInterface";
+import { PostAddRequest, PostUpdateRequest } from "../state/postTypes";
 
 
 const postServices = {

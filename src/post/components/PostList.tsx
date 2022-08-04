@@ -33,7 +33,6 @@ export function PostList() {
 
             {count > 0 ?
                 (
-                    // <p>{count} post(s)</p>
                     list.map((post, index) => (
                         <PostItem
                             key={index}

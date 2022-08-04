@@ -4,6 +4,7 @@ import SideBar from './sidebar/components/SideBar';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PostContainer from './post/containers/PostContainer';
 import { TodoContainer } from './todo/container/TodoContainer';
+import ProductContainer from './product/container/ProductContainer';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
             <Route path="/" element={<Counter />} />
             <Route path="/todo" element={<TodoContainer />} />
             <Route path="/post" element={<PostContainer />} />
+            <Route path="/product" element={<ProductContainer />} />
           </Routes>
         </Router>
       </div>

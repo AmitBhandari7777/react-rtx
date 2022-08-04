@@ -1,6 +1,6 @@
 import { ActionReducerMapBuilder, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
-import { Post, PostAddRequest, PostState, PostUpdateRequest } from "./postInterface";
+import { Post, PostAddRequest, PostState, PostUpdateRequest } from "./postTypes";
 import { postAddThunk, postDeleteThunk, postListThunk, postUpdateThunk } from "./postThunk";
 
 
@@ -12,6 +12,23 @@ const initialState = {
     status: "idle",
 }
 
+
+
+const createPostAddSlice = (builder: ActionReducerMapBuilder<PostState>) => {
+    builder.addCase(postAddThunk.pending, (state, action) => {
+        state.status = "loading";
+    })
+    builder.addCase(postAddThunk.fulfilled, (state, action) => {
+        const stateForList = state.list as Post[];
+        const payload = action.payload as Post;
+        stateForList.splice(0, 0, payload);
+        state.count += 1;
+        state.status = "success";
+    })
+    builder.addCase(postAddThunk.rejected, (state, action) => {
+        state.status = "failed";
+    });
+}
 
 const createPostListSlice = (builder: ActionReducerMapBuilder<PostState>) => {
     builder
@@ -28,22 +45,6 @@ const createPostListSlice = (builder: ActionReducerMapBuilder<PostState>) => {
             state.status = "failed";
         });
 
-}
-
-const createPostAddSlice = (builder: ActionReducerMapBuilder<PostState>) => {
-    builder.addCase(postAddThunk.pending, (state, action) => {
-        state.status = "loading";
-    })
-    builder.addCase(postAddThunk.fulfilled, (state, action) => {
-        const stateForList = state.list as Post[];
-        const payload = action.payload as Post;
-        stateForList.splice(0, 0, payload);
-        state.count += 1;
-        state.status = "success";
-    })
-    builder.addCase(postAddThunk.rejected, (state, action) => {
-        state.status = "failed";
-    });
 }
 
 
@@ -85,8 +86,8 @@ export const postSlice = createSlice({
     initialState: initialState,
     reducers: {},
     extraReducers: (builder) => {
-        createPostListSlice(builder)
         createPostAddSlice(builder)
+        createPostListSlice(builder)
         createPostUpdateSlice(builder)
         createPostDeleteSlice(builder)
     },

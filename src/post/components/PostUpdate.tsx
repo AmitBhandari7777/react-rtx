@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { useAppDispatch } from "../../hooks";
-import { PostUpdateRequest } from "../state/postInterface";
+import { PostUpdateRequest } from "../state/postTypes";
 import { postUpdateThunk } from "../state/postThunk";
 
 

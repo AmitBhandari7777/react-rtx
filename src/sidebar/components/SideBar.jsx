@@ -14,6 +14,9 @@ function SideBar(props) {
       <a className="menu-item" href="/post">
         Post
       </a>
+      <a className="menu-item" href="/product">
+        Product
+      </a>
 
     </Menu>
   );

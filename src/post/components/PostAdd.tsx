@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAppDispatch } from "../../hooks";
-import { PostAddRequest } from "../state/postInterface";
+import { PostAddRequest } from "../state/postTypes";
 import { postAddThunk } from "../state/postThunk";
 
 function PostAdd() {

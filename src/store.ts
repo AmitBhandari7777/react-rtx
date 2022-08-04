@@ -1,9 +1,9 @@
 
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import todoSlice from "./todo/state/todoSlice";
 import counterSlice from "./counter/state/counterSlice";
 import postSlice from "./post/state/postSlice";
-import productionApi from "./query/productApi";
+import { productApi } from "./product/query/productApi";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
 
 export const store = configureStore({
@@ -13,11 +13,11 @@ export const store = configureStore({
         todo: todoSlice,
         post: postSlice,
         //these redux slice/reducer is connected to redux query
-        [productionApi.reducerPath]: productionApi.reducer,
+        [productApi.reducerPath]: productApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(
-            productionApi.middleware,
+            productApi.middleware,
         ),
 });
 
