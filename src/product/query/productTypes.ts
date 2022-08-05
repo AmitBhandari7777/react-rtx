@@ -26,4 +26,12 @@ export interface ProductListResponse {
 }
 
 
+export interface ProductAddRequest {
+    title: string,
+    brand: string,
+    category: string,
+    description: string,
+}
+
+
 export default Product;
