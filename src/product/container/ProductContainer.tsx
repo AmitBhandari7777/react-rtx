@@ -1,4 +1,4 @@
-import { ProductAdd } from "../components/ProductAdd";
+import ProductAdd from "../components/ProductAdd";
 import ProductList from "../components/ProductList";
 import { useProductListApiQuery } from "../query/productApi";
 

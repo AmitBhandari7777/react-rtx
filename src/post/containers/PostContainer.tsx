@@ -1,4 +1,4 @@
-import { Container } from "react-bootstrap";
+import { Container } from "reactstrap";
 import PostAdd from "../components/PostAdd";
 import PostList from "../components/PostList";
 

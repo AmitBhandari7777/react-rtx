@@ -1,10 +1,15 @@
+import React from "react";
 import { useState } from 'react';
+import { useForm } from "react-hook-form";
 import { useProductAddApiMutation, useProductListApiQuery } from '../query/productApi';
-import Product, { ProductAddRequest } from '../query/productTypes';
+import { ProductAddRequest } from '../query/productTypes';
+// import ProductAddSchema from '../validation/ProductAddSchema';
+import { yupResolver } from "@hookform/resolvers/yup";
+
 import './ProductAdd.css';
+import ProductAddSchema from "./ProductAddSchema";
 
-
-export function ProductAdd() {
+const ProductAdd = () => {
     const { data, isError, isLoading } = useProductListApiQuery();
     const [addNewProduct, response] = useProductAddApiMutation();
 
@@ -14,11 +19,29 @@ export function ProductAdd() {
         category: "",
         description: ""
     }
-    const [value, setValue] = useState(initialValue);
 
-    const onSubmit = (e: React.FormEvent<HTMLElement>) => {
-        e.preventDefault();
-        addNewProduct(initialValue)
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        watch,
+        getValues,
+        formState: { errors },
+        reset,
+    } = useForm<ProductAddRequest>({
+        defaultValues: initialValue,
+        mode: 'onChange',
+        resolver: yupResolver(ProductAddSchema)
+    });
+
+
+
+
+
+    // const onSubmit = (e: React.FormEvent<HTMLElement>) => {
+    const onSubmit = (data: ProductAddRequest) => {
+        // e.preventDefault();
+        addNewProduct(data)
             .unwrap()
             .then((payload) => {
                 console.log("payload", payload);
@@ -28,57 +51,72 @@ export function ProductAdd() {
                 console.log("Product Add Successful");
                 console.log(error);
             })
+        reset();
     }
 
     return (
         <div>
-            <form onSubmit={onSubmit}>
-                <div className='product-input'>
-                    <input
-                        type="text"
-                        name="title"
-                        onChange={e => {
-                            initialValue.title = e.target.value;
-                            // setValue(value);
-                        }}
-                        placeholder="Title" />
-                </div>
+            <form
+                onSubmit={handleSubmit(onSubmit)}>
 
                 <div className='product-input'>
                     <input
                         type="text"
-                        name="brand"
-                        onChange={e => {
-                            initialValue.brand = e.target.value;
-                            // setValue(value);
-                        }}
-                        placeholder="Brand" />
+                        placeholder="Title"
+                        {...register('title')}
+                        // onChange={e => {
+                        //     initialValue.title = e.target.value;
+                        //     // setValue(value);
+                        // }} 
+                        />
                 </div>
-
+                <small style={{ color: "red" }}>{errors.title?.message}</small>
                 <div className='product-input'>
                     <input
                         type="text"
-                        name="category"
-                        onChange={e => {
-                            initialValue.category = e.target.value;
-                            // setValue(value);
-                        }}
-                        placeholder="Category" />
+                        // name="brand"
+                        placeholder="Brand"
+                        {...register('brand')}
+                        // onChange={e => {
+                        //     initialValue.brand = e.target.value;
+                        //     // setValue(value);
+                        // }}
+                         />
                 </div>
-
+                <small style={{ color: "red" }}>{errors.brand?.message}</small>
                 <div className='product-input'>
                     <input
                         type="text"
-                        name="description"
-                        onChange={e => {
-                            initialValue.description = e.target.value;
-                            setValue(value);
-                        }}
-                        placeholder="Description" />
+                        // name="category"
+                        placeholder="Category"
+                        {...register('category')}
+                        // onChange={e => {
+                        //     initialValue.category = e.target.value;
+                        //     // setValue(value);
+                        // }} 
+                        />
                 </div>
-
-                <button type="submit">Add Product</button>
+                <small style={{ color: "red" }}>{errors.category?.message}</small>
+                <div className='product-input'>
+                    <input
+                        type="text"
+                        // name="description"
+                        placeholder="Description"
+                        {...register('description')}
+                        // onChange={e => {
+                        //     initialValue.description = e.target.value;
+                        //     // setValue(value);
+                        // }}
+                         />
+                </div>
+                <small style={{ color: "red" }}>{errors.description?.message}</small>
+                {/* <button type="submit">Add Product</button> */}
+                <input type="submit" />
             </form>
         </div>
     );
 }
+
+
+export default ProductAdd;
+
